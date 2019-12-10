@@ -7,12 +7,14 @@
 var app = require('../app')
 var debug = require('debug')('node001:server')
 var http = require('http')
-var rep = require('../reptile/rep1')
+var rep = require('../reptile/rep1') // 爬虫
+var test = require('../test/test') // 测试数据库crud
 
 /**
  * Get port from environment and store in Express.
  */
-rep()
+// rep()
+// test()
 // console.log(res)
 var port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)

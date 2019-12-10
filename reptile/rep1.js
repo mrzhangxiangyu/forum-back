@@ -1,6 +1,6 @@
 const request=require("request")  
 const cheerio=require("cheerio")  
-const pool = require('../db')
+const db = require('../db')
 
 const rep = function(item){
   request('https://www.qidian.com/rank?chn=21',function(err,res){ 
