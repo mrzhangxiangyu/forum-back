@@ -48,8 +48,7 @@ function getUser(userId) {
 // 获取文章列表
 router.get('/', async function (req, res, next){
   let data = func.deepClone(defaultData)
-  let sql = 'select * from article where ' + (req.query.type ? ('typeId = "' + req.query.type + '" and ') : '') + 'status = 1 order by updateTime ASC'
-  db.retrieve(str).then( async (e) => {
+  db.retrieve('select * from article where typeId = "' + req.query.type + '" and status = 1 order by updateTime ASC').then( async (e) => {
     let {err, ret} = e
     if (err) {
       data.meta.info = err
