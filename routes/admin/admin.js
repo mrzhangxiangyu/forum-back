@@ -1,6 +1,13 @@
 var express = require('express')
 var router = express.Router()
 var db = require('../../db')
+var func = require('../../function/function')
+var adminUsers = require('./users')
+var adminArticles = require('./articles')
+var adminTypes = require('./types')
+router.use('/users', adminUsers)
+router.use('/articles', adminArticles)
+router.use('/types', adminTypes)
 /* GET users listing. */
 let defaultData = {
   data: [],
@@ -9,9 +16,10 @@ let defaultData = {
     info: ''
   }
 }
-router.get('/', function(req, res, next) {
-  let data = defaultData
-  db.retrieve('select * from admin where account = "' + req.query.account + '"', (err, ret) => {
+router.get('/login', function(req, res, next) {
+  let data = func.deepClone(defaultData)
+  db.retrieve('select * from admin where account = "' + req.query.account + '"').then(e => {
+    let {err, ret} = e
     if (err) {
       data.meta.info = err
     } else {

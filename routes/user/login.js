@@ -13,7 +13,8 @@ let defaultData = {
 router.post('/', function(req, res, next) {
   let data = defaultData
   console.log(req.body)
-  db.retrieve('select * from user where account = "' + req.body.account + '"', (err, ret) => {
+  db.retrieve('select * from user where account = "' + req.body.account + '" and status = 1').then( e => {
+    let {err, ret} = e
     if (err)
       data.meta.info = err
     else {
@@ -25,6 +26,7 @@ router.post('/', function(req, res, next) {
         if (ret[0].password === req.body.password) {
           data.meta.status = true
           data.meta.info = '登陆成功'
+          data.data = ret[0]
         } else {
           data.meta.status = false
           data.meta.info = '密码错误'
